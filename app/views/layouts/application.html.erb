@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ruby on Rails Tutorial Sample App | <%= yield(:title) %></title>
+  <title><%= full_title(yield(:title)) %></title>
+  <!--inserts full_title(and yields page specific hash :title as its' argument-->
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <!--Uses built in Rails function stylesheet_link_tag
+  to include application.ss for all media types(including 
+  computer screens and printers)-->
+  <!--Demonstrates 4 key Ruby ideas: built in Rails methods
+  method invocation with missing (), symbols, and hashes-->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
