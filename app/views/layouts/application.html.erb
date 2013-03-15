@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= full_title(yield(:title)) %></title>
-  <!--inserts full_title(and yields page specific hash :title as its' argument-->
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <!--Uses built in Rails function stylesheet_link_tag
-  to include application.ss for all media types(including 
-  computer screens and printers)-->
-  <!--Demonstrates 4 key Ruby ideas: built in Rails methods
-  method invocation with missing (), symbols, and hashes-->
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <!--inserts full_title(and yields page specific hash :title as its' argument-->
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <!--New Ruby 1.9 style hashes xyz: abc-->
+    <!--Uses built in Rails function stylesheet_link_tag
+    to include application.ss for all media types(including 
+    computer screens and printers)-->
+  
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>
+    <!--looks for file, evaluates contents, and inserts results into the view(note that partials have a leading _ in the filename, such as _shim.html.erb, this is the universal naming convention, making it easy to identify partials in a directory-->
+  </head>
+  <body>
+    <%= render 'layouts/header' %>
+    <div class="container"><!--div for main content, with container class assigned(has special meaning to Bootstrap)-->
+    <%= yield %>
+    <%= render 'layouts/footer' %>
+    </div>
+  </body>
 </html>
+
