@@ -1,10 +1,11 @@
-module ApplicationHelper #module provides way to package together
-						 #related methods, which can be mixed in to Ruby classes
-						 #using include, when writing ordinary ruby, you often
-						 #write modules and include them explicitly yourself
-						 #but in the case of a helper modeule rails handles the
-						 #inclusion, which results in full_title method being
-						 #available in all our views. 
+module ApplicationHelper 
+#module provides way to package together
+#related methods, which can be mixed in to Ruby classes
+#using include, when writing ordinary ruby, you often
+#write modules and include them explicitly yourself
+#but in the case of a helper modeule rails handles the
+#inclusion, which results in full_title method being
+#available in all our views. 
 
 	#Returns the full title on a per-page basis.
 	def full_title(page_title) #method definition
