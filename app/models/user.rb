@@ -8,6 +8,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
+#  remember_token  :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -15,6 +16,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   before_save { email.downcase! } 
+  before_save :create_remember_token
   #bang method, equivalent to { |user| user.email = email.downcase}
   # or { |user| email.downcase!}
 
@@ -29,6 +31,10 @@ class User < ActiveRecord::Base
   #gives validates method :name arg, then runs presence &
   #length methods, length takes maximum hash, then returns
   #true only is (arg) <= maximum
+  private 
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
 end
 
 #note: must run bundle exec annotate whenever data

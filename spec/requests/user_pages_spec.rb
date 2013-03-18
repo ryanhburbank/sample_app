@@ -31,6 +31,7 @@ describe "User Pages" do
           it { should have_content('Password can\'t be blank')}
           it { should have_content('Password is too short (minimum is 6 characters)')}
           it { should have_content('Password confirmation can\'t be blank')}
+          it { should have_selector('div.alert.alert-error', text: 'Invalid signup, please try again') }
         end
   		end
 
@@ -51,6 +52,7 @@ describe "User Pages" do
   		    
           it { should have_selector('title', text: user.name) }
           it { should have_selector('div.alert.alert-success', text: 'An account for you Example User, you go Example User!') }
+          it { should have_link('Sign out') }
         end
       end
   	end
