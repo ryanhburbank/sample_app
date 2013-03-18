@@ -16,10 +16,19 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-    <div class="container"><!--div for main content, with container class assigned(has special meaning to Bootstrap)-->
+    <div class="container">
+        <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
     <%= yield %>
     <%= render 'layouts/footer' %>
+    <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
 </html>
 
+<!--line 20 arranges to insert a div tag for each element in
+    the flash, with a CSS class indicating the type of message.
+    For example if flash[:success] = "Welcome to the Sample App!"
+    then the following HTML is produced
+    <div class="alert alert-success">Welcome to the Sample App!</div> -->
