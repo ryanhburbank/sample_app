@@ -1,14 +1,18 @@
 FactoryGirl.define do  
 	 factory :user do
-	 	name 	"Mr. Example"
-		email	 "example@test.com"
-		password 	 "example"
-		password_confirmation 	"example"
+	 	sequence(:name) { |n| "Person #{n}" }	
+		sequence(:email) { |n| "person_#{n}@example.com" }	
+		password "example"
+		password_confirmation "example"
+
+		factory :admin do
+			admin true
+		end
 	end
 end
 
 
 #with this definition in place
-#we can create a user factory in the tetss using let and the 
+#we can create a user factory in the tests using let and the 
 #FactoryGirl method supplied by Factory Factory FactoryGirl
 #let(:user) { FactoryGirl.create(:user) }

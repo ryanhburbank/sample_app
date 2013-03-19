@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 			first = user.name.split(" ")
 			flash[:success] = "Welcome back #{first[0]}!"
 			sign_in user
-			redirect_to user
+			redirect_back_or user
 		else
 			flash.now[:error] = "Invalid email/password combination"
 			render 'new'
