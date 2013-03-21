@@ -110,6 +110,27 @@ variable definitions for color (see pg 244 Hartl)*/
 
 /* sidebar */
 
+.stats { 
+	overflow: auto;
+	a {
+		float: left;
+		padding: 0 10px;
+		border-left: 1px solid $grayLighter;
+		color: gray;
+		&:first-child {
+			padding-left: 0;
+			border: 0;
+		}
+		&:hover {
+			text-decoration: none;
+			color: $blue;
+		}
+	}
+	strong {
+		display: block;
+	}
+}
+
 aside {
 	section {
 		padding: 10px 0;
@@ -130,6 +151,14 @@ aside {
 		margin-bottom: 3px;
 		margin-top: 0px;
 		}
+	}
+}
+
+.user_avatars {
+	overflow: auto;
+	margin-top: 10px;
+	.gravatar {
+		margin: 1px 1px;
 	}
 }
 

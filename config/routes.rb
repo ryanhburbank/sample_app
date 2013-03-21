@@ -1,7 +1,20 @@
 SampleApp::Application.routes.draw do
-  resources :users
+  resources :users do 
+    member do
+      get :following, :followers
+    end
+  end
+    # user get to arrange for URI to respond to GET requests
+    #member method means that routes respond to the user ids
+    #alt method, collection, works without id
+  
+  #provides following routes;
+  #HTTP    URI                  Action     Named route
+  #GET    /users/1/following   following  following_user_path(1)
+  #GET    /users/1/followers   followers  followers_user_path(1)
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
   
   root to: 'static_pages#home'
 

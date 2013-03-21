@@ -16,7 +16,13 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   has_secure_password
   has_many :microposts, dependent: :destroy
-
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed
+ #user.followed_users, through relationships database, source: followed id.
+  has_many :reverse_relationships, foreign_key: "followed_id",
+                                   class_name: "Relationship",
+                                   dependent: :destroy
+  has_many :followers, through: :reverse_relationships, source: :follower
   before_save { email.downcase! } 
   before_save :create_remember_token
   #bang method, equivalent to { |user| user.email = email.downcase}
@@ -35,7 +41,26 @@ class User < ActiveRecord::Base
   #true only is (arg) <= maximum
   def feed
     #This is prelim
-    Micropost.where("user_id = ?", id)
+    Micropost.from_users_followed_by(self)
+  end
+
+  def following?(other_user)
+    relationships.find_by_followed_id(other_user.id)
+    #takes in a user, checks to see if a followed user
+    #with that id exists in the database
+    #could write as self.relationships...etc
+  end
+
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)
+    #creates a relationship with other user through 
+    #the relationships association, assigning 
+    #other_user.id as the followed_id
+    #could also write as self.relationships...etc
+  end
+
+  def unfollow!(other_user)
+    relationships.find_by_followed_id(other_user.id).destroy
   end
 
   private 
